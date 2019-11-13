@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/java-tdd-env.iml" filepath="$PROJECT_DIR$/java-tdd-env.iml" />
+      <module fileurl="file://$PROJECT_DIR$/crossway.iml" filepath="$PROJECT_DIR$/crossway.iml" />
     </modules>
   </component>
 </project>
