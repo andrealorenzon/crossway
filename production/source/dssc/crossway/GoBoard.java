@@ -11,7 +11,7 @@ public class GoBoard {
     private Cell[][] board;
 
     /**
-     * GoBoard Constructor.
+     * GoBoard Constructor. Initializes a matrix of Cell items
      * @param side the side of the board in units
      */
     public GoBoard(Integer side) {
@@ -19,9 +19,16 @@ public class GoBoard {
         this.side = side;
         this.board = new Cell [side][side];
 
+        initializeBoard("null");
+    }
+
+    /**
+     * board initialization
+     */
+    private void initializeBoard(String initialStatus) {
         for (int i=0; i<this.side; i++) {
             for (int j=0; j<this.side; j++) {
-                this.board[i][j] = new Cell();
+                this.board[i][j] = new Cell(initialStatus);
             }
         }
     }
