@@ -5,33 +5,29 @@ package dssc.crossway;
  * Go board class. A class to manage a Go Board, that is a square check board.
  *
  */
-public class GoBoard {
-
-    private final Integer side;
-    private Cell[][] board;
+public class GoBoard extends GenericBoard {
 
     /**
-     * GoBoard Constructor. Initializes a matrix of Cell items
-     * @param side the side of the board in units
+     * GoBoard constructor
+     * @param side the side of the board, in cells
      */
     public GoBoard(Integer side) {
-
-        this.side = side;
-        this.board = new Cell [side][side];
-
+        super(side);
         initializeBoard("null");
     }
 
     /**
      * board initialization
      */
-    private void initializeBoard(String initialStatus) {
+    @Override
+    public void initializeBoard(String initialValue) {
         for (int i=0; i<this.side; i++) {
             for (int j=0; j<this.side; j++) {
-                this.board[i][j] = new Cell(initialStatus);
+                this.board[i][j] = new Cell(initialValue);
             }
         }
     }
+
 
     /**
      * Side getter
