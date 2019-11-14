@@ -1,5 +1,10 @@
 package dssc.crossway;
 
+/**
+ * A Cell class.
+ *
+ * Default status = "null"
+ */
 public class Cell {
 
     private String status;
@@ -8,6 +13,7 @@ public class Cell {
         this.status = "null";
     }
 
+    //ctor
     Cell (String initialStatus) {
         this.status = initialStatus;
     }
@@ -15,5 +21,9 @@ public class Cell {
 
     public String getStatus() {
         return this.status;
+    }
+
+    void setStatus(String newStatus) {
+        this.status = newStatus;
     }
 }

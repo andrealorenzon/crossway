@@ -1,12 +1,14 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="All tests" type="JUnit" factoryName="JUnit">
-    <module name="crossway" />
-    <option name="PACKAGE_NAME" value="it" />
+    <option name="PACKAGE_NAME" value="test.crossway" />
     <option name="MAIN_CLASS_NAME" value="" />
     <option name="METHOD_NAME" value="" />
     <option name="TEST_OBJECT" value="package" />
     <option name="PARAMETERS" value="" />
     <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+    <option name="TEST_SEARCH_SCOPE">
+      <value defaultName="wholeProject" />
+    </option>
     <dir value="$PROJECT_DIR$/test/source" />
     <method v="2">
       <option name="Make" enabled="true" />
