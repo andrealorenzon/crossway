@@ -26,6 +26,12 @@ public class GoBoard {
         return side;
     }
 
+    /** Cell getter
+     * @return Gets the status of a cell (-1= null, 0=black, 1=white)
+     */
+    public short getCellStatus(int x, int y) {
+        return 0;
+    }
 
 
 }
