@@ -8,7 +8,7 @@ You can’t crosscut, so if your opponent already has connected two stones diago
 
 Draws and ties cannot occur in Crossway.
 
-The only illegal moves are
+The only moves not allowed are
    
     BW
     WB
@@ -16,4 +16,7 @@ and
 
     WB
     BW
+    
+    
+hi
     
