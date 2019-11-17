@@ -13,14 +13,14 @@ public class GoBoard extends GenericBoard {
      */
     public GoBoard(Integer side) {
         super(side);
-        initializeBoard("null");
+        initializeBoard(CellStatus.EMPTY);
     }
 
     /**
      * board initialization
      */
     @Override
-    public void initializeBoard(String initialValue) {
+    public void initializeBoard(CellStatus initialValue) {
         for (int i=0; i<this.side; i++) {
             for (int j=0; j<this.side; j++) {
                 this.board[i][j] = new Cell(initialValue);

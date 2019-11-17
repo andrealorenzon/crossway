@@ -16,5 +16,5 @@ public abstract class GenericBoard {
 
     }
 
-    abstract void initializeBoard(String initialValue);
+    abstract void initializeBoard(CellStatus initialValue);
 }
