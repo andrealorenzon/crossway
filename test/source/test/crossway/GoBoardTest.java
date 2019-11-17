@@ -12,21 +12,21 @@ public class GoBoardTest {
 
     @Test
     void getSideTest() {
-        GoBoard board = new GoBoard(8);
+        GoBoard board = new GoBoard (8);
         assertEquals(board.getSide(),8);
     }
 
     @Test
     void setCellStatusTest() throws OutOfBoardException {
-        GoBoard board = new GoBoard(8);
+        GoBoard board = new GoBoard (8);
         board.setCellStatus(1,4,"white");
         assertEquals(board.getCellStatus(1,4), "white");
     }
 
     @Test
-    public void testExceptionMessage() {
+    void testExceptionMessage() {
 
-        GoBoard board = new GoBoard(8);
+        GoBoard board = new GoBoard (8);
         try {
             board.setCellStatus(1,9, "bad");
         } catch (OutOfBoardException e) {
