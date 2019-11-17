@@ -1,5 +1,6 @@
 package test.crossway;
 
+import dssc.crossway.CellStatus;
 import dssc.crossway.GoBoard;
 import dssc.crossway.OutOfBoardException;
 import org.junit.jupiter.api.Test;
@@ -12,23 +13,23 @@ public class GoBoardTest {
 
     @Test
     void getSideTest() {
-        GoBoard board = new GoBoard (8);
+        GoBoard board = new GoBoard(8);
         assertEquals(board.getSide(),8);
     }
 
     @Test
     void setCellStatusTest() throws OutOfBoardException {
-        GoBoard board = new GoBoard (8);
-        board.setCellStatus(1,4,"white");
-        assertEquals(board.getCellStatus(1,4), "white");
+        GoBoard board = new GoBoard(8);
+        board.setCellStatus(1,4, CellStatus.WHITE);
+        assertEquals(board.getCellStatus(1,4), CellStatus.WHITE);
     }
 
     @Test
-    void testExceptionMessage() {
+    public void testExceptionMessage() {
 
-        GoBoard board = new GoBoard (8);
+        GoBoard board = new GoBoard(8);
         try {
-            board.setCellStatus(1,9, "bad");
+            board.setCellStatus(1,9, CellStatus.WHITE);
         } catch (OutOfBoardException e) {
             assertEquals(e.getMessage(),"Out of board!");
         }
@@ -37,7 +38,7 @@ public class GoBoardTest {
     @Test
     void getCellStatusTest() {
         GoBoard board = new GoBoard(8);
-        assertEquals(board.getCellStatus(1,4), "null");
+        assertEquals(board.getCellStatus(1,4), CellStatus.EMPTY);
     }
 
 

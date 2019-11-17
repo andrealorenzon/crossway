@@ -7,23 +7,23 @@ package dssc.crossway;
  */
 public class Cell {
 
-    private String status;
+    private CellStatus status;
 
     public Cell() {
-        this.status = "null";
+        this.status = CellStatus.EMPTY;
     }
 
     //ctor
-    Cell (String initialStatus) {
-        this.status = initialStatus;
+    Cell (CellStatus status) {
+        this.status = status;
     }
 
 
-    public String getStatus() {
+    public CellStatus getStatus() {
         return this.status;
     }
 
-    void setStatus(String newStatus) {
+    void setStatus(CellStatus newStatus) {
         this.status = newStatus;
     }
 }
