@@ -22,7 +22,7 @@ public class GoBoardTest {
         GoBoard board = new GoBoard(8);
         board.setCellStatus(1,4, CellStatus.WHITE);
         assertEquals(board.getCellStatus(1,4), CellStatus.WHITE);
-}
+    }
 
     @Test
     void testExceptionMessage() {
