@@ -2,22 +2,22 @@ package test.crossway;
 
 
 import dssc.crossway.Cell;
-import dssc.crossway.CellStatus;
+import dssc.crossway.Colors;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class CellTest {
+ class CellTest {
 
     @Test
     void initializeCell () {
         Cell c = new Cell();
-        assertEquals(c.getStatus(), CellStatus.EMPTY);
+        assertEquals(c.getStatus(), Colors.EMPTY);
     }
 
     @Test
     void initializeWithEnumClass() {
         Cell c = new Cell();
-        assertEquals(c.getStatus(), CellStatus.EMPTY);
+        assertEquals(c.getStatus(), Colors.EMPTY);
     }
 }
