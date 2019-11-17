@@ -1,20 +1,20 @@
 package dssc.crossway;
 
-public abstract class GenericBoard {
+abstract class GenericBoard {
 
-    protected Integer side;
-    protected Cell [][] board;
+    int side;
+     Cell [][] board;
 
     /**
      * GoBoard Constructor. Initializes a matrix of Cell items
      * @param side the side of the board in units
      */
-     protected GenericBoard (Integer side) {
+      GenericBoard (int side) {
 
         this.side = side;
         this.board = new Cell [side][side];
 
     }
 
-    abstract void initializeBoard(CellStatus initialValue);
+    abstract void initializeBoard();
 }

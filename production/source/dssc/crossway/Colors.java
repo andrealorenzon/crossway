@@ -1,6 +1,6 @@
 package dssc.crossway;
 
-public enum CellStatus {
+public enum Colors {
     EMPTY,
     BLACK,
     WHITE
