@@ -41,7 +41,11 @@ public class GoBoard extends GenericBoard {
     /** Cell getter
      * @return Gets the String status of a cell
      */
-    public Colors getCellStatus(int x, int y) {
+    public Colors getCellStatus(int x, int y) throws OutOfBoardException {
+
+        if ((x>=this.side)||(y>=this.side)) {
+            throw new OutOfBoardException();
+        }
 
         return this.board[x][y].getStatus();
     }

@@ -18,19 +18,32 @@ public class GameController {
         this.rules = rules;
     }
 
+    // test method, remove
     public boolean exists() {
         return true;
     }
 
+    /**
+     * starts a new game, instantiating a board for two players.
+     */
     public void startGame() {
 
     }
 
+    /**
+     * Places a stone.
+     * @param x  x coordinate [0,size-1]
+     * @param y  y coordinate [0,size-1]
+     * @param color {EMPTY, BLACK, WHITE}.
+     * @see Colors
+     *
+     * @throws OutOfBoardException
+     */
     public void placeStone(int x, int y, Colors color) throws OutOfBoardException {
         board.setCellStatus(x,y,color);
     }
 
-    public Colors getCellStatus(int x, int y) {
-        return this.board.getCellStatus(1,1);
+    public Colors getCellStatus(int x, int y) throws OutOfBoardException {
+        return this.board.getCellStatus(x,y);
     }
 }

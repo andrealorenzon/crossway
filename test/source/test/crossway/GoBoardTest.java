@@ -24,6 +24,12 @@ import static   org.junit.jupiter.api.Assertions.assertEquals;
         assertEquals(board.getCellStatus(1,4), Colors.WHITE);
     }
 
+     @Test
+     void getCellStatusTest() throws OutOfBoardException {
+         GoBoard board = new GoBoard(8);
+         assertEquals(board.getCellStatus(1,4), Colors.EMPTY);
+     }
+
     @Test
     void testExceptionMessage() {
 
@@ -35,11 +41,7 @@ import static   org.junit.jupiter.api.Assertions.assertEquals;
         }
     }
 
-    @Test
-    void getCellStatusTest() {
-        GoBoard board = new GoBoard(8);
-        assertEquals(board.getCellStatus(1,4), Colors.EMPTY);
-    }
+
 
 
 }
