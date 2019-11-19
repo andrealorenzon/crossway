@@ -33,4 +33,8 @@ public class GameController {
     public Colors getCellStatus(int x, int y) {
         return this.board.getCellStatus(1,1);
     }
+
+    public void placeStone(Move m) throws OutOfBoardException {
+        board.setCellStatus(m.getX(),m.getY(),m.getColor());
+    }
 }

@@ -33,4 +33,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
         return new GameController(new GoBoard(12), new CrosswayRules());
     }
 
+
+     @Test
+     void firstMove2() throws OutOfBoardException {
+         GameController gc = initialize();
+         gc.startGame();
+         Move m = new Move(1,1, Colors.WHITE);
+         gc.placeStone(m);
+         assertEquals(gc.getCellStatus(1,1), Colors.WHITE);
+     }
 }
