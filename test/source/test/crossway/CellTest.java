@@ -20,4 +20,12 @@ import static org.junit.Assert.assertEquals;
         Cell c = new Cell();
         assertEquals(c.getStatus(), Colors.EMPTY);
     }
+
+    @Test
+    void oppositeColorTest() {
+        assertEquals(Colors.BLACK.getOpposite(),Colors.WHITE);
+        assertEquals(Colors.WHITE.getOpposite(),Colors.BLACK);
+        assertEquals(Colors.EMPTY.getOpposite(),Colors.EMPTY);
+
+    }
 }
