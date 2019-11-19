@@ -1,6 +1,7 @@
 package test.crossway;
 
 import dssc.crossway.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static junit.framework.TestCase.assertEquals;
@@ -35,12 +36,27 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
      @Test
-     void firstMove2() throws OutOfBoardException {
+     void firstMove2() throws OutOfBoardException, IllegalMoveException {
          GameController gc = initialize();
          gc.startGame();
          Move m = new Move(1,1, Colors.WHITE);
          gc.placeStone(m);
          assertEquals(gc.getCellStatus(1,1), Colors.WHITE);
+     }
+
+     @Test
+     void illegalMove() throws OutOfBoardException, IllegalMoveException {
+         GameController gc = initialize();
+         gc.startGame();
+         Move m1 = new Move(1,1, Colors.WHITE);
+         gc.placeStone(m1);
+         Move m2 = new Move(1,1, Colors.WHITE);
+
+         try {
+             gc.placeStone(m2);
+         } catch (IllegalMoveException e) {
+             Assertions.assertEquals(e.getMessage(), "Illegal move!");
+         }
      }
 
 

@@ -34,12 +34,16 @@ public class GameController {
         return this.board.getCellStatus(1,1);
     }
 
-    public void placeStone(Move m) throws OutOfBoardException {
-        board.setCellStatus(m.getX(),m.getY(),m.getColor());
+    public void placeStone(Move m) throws OutOfBoardException, IllegalMoveException {
+        if(this.validateMove(m))
+            board.setCellStatus(m.getX(),m.getY(),m.getColor());
+        else {
+            throw new IllegalMoveException();
+        }
     }
 
 
-    public boolean validateMove(Move m0) {
-        return rules.validateMove(this.board, m0);
+    public boolean validateMove(Move m) {
+        return rules.validateMove(this.board, m);
     }
 }

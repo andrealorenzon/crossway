@@ -18,7 +18,7 @@ public class RulesTest {
     }
 
     @Test
-    void validateIllegalMoveTest() throws OutOfBoardException {
+    void validateIllegalMoveTest() throws OutOfBoardException, IllegalMoveException {
         GameController gc = new GameController(new GoBoard(12), new CrosswayRules());
         gc.startGame();
         Move m0 = new Move(1,1, Colors.WHITE);
