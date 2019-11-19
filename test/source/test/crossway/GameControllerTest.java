@@ -42,4 +42,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
          gc.placeStone(m);
          assertEquals(gc.getCellStatus(1,1), Colors.WHITE);
      }
+
+
 }

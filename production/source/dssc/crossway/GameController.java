@@ -37,4 +37,9 @@ public class GameController {
     public void placeStone(Move m) throws OutOfBoardException {
         board.setCellStatus(m.getX(),m.getY(),m.getColor());
     }
+
+
+    public boolean validateMove(Move m0) {
+        return rules.validateMove(this.board, m0);
+    }
 }
