@@ -1,6 +1,5 @@
 package dssc.crossway;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public class CrosswayRules extends Validator {
@@ -139,16 +138,14 @@ public class CrosswayRules extends Validator {
         while(Q.size() != 0){
 
             node = Q.poll();
-            Iterator<Coordinates> i = adjacentNodes(node, board, c).listIterator();
-            while (i.hasNext()){
-                Coordinates n = i.next();
-                if((n.x_cord == (side - 1)) && (c == Colors.WHITE)){
+            for (Coordinates n : adjacentNodes( node, board, c)) {
+
+                if ((n.x_cord == (side - 1)) && (c == Colors.WHITE)) {
+                    return true;
+                } else if ((n.y_cord == (side - 1)) && (c == Colors.BLACK)) {
                     return true;
                 }
-                else if((n.y_cord == (side - 1)) && (c == Colors.BLACK)){
-                    return true;
-                }
-                if (!visited[n.x_cord][n.y_cord]){
+                if (!visited[n.x_cord][n.y_cord]) {
                     visited[n.x_cord][n.y_cord] = true;
                     Q.add(n);
                 }
@@ -160,7 +157,7 @@ public class CrosswayRules extends Validator {
         return false;
     }
 
-    private LinkedList<Coordinates> adjacentNodes(Coordinates node, GoBoard board, Colors c) throws OutOfBoardException {
+    private LinkedList<Coordinates> adjacentNodes(Coordinates node, GoBoard board, Colors c) {
 
         int x = node.x_cord - 1;
         int y = node.y_cord - 1;
@@ -174,7 +171,7 @@ public class CrosswayRules extends Validator {
                     if ((i != j) && (board.getCellStatus(i, j) == c)) {
                         ret.add(new Coordinates(i, j));
                     }
-                } catch (OutOfBoardException e) {continue;}
+                } catch (OutOfBoardException ignored) {}
             }
         }
 
