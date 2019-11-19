@@ -73,4 +73,36 @@ public class CrosswayRules extends Validator {
                 noCrossways(board,m);
 
     }
+
+    @Override
+
+    public Colors winner(GoBoard board) throws  OutOfBoardException{
+
+
+        for(int i = 0; i < board.getSide(); i++ ){
+            // Check white
+            if(board.getCellStatus(0,i) == Colors.WHITE){
+                if(winningChain(0, i,Colors.WHITE))
+                    return Colors.WHITE;
+            }
+            //Check black
+            if(board.getCellStatus(i,0) == Colors.BLACK){
+                if(winningChain(i, 0,Colors.BLACK))
+                    return Colors.BLACK;
+            }
+        }
+
+        return Colors.EMPTY;
+
+    }
+
+    private boolean winningChain(int x, int y, Colors c) {
+
+
+
+
+
+        return true ;
+    }
+
 }

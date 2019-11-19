@@ -3,8 +3,7 @@ package test.crossway;
 import dssc.crossway.*;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RulesTest {
 
@@ -27,7 +26,7 @@ public class RulesTest {
     }
 
     @Test
-    void crosswayIllegalMoveTestSoutheast() throws OutOfBoardException, IllegalMoveException {
+    void crosswayIllegalMoveTestSoutheast() throws OutOfBoardException {
 
         /**
          *     0 1 2
@@ -52,7 +51,7 @@ public class RulesTest {
     }
 
     @Test
-    void crosswayIllegalMoveTestSouthwest() throws OutOfBoardException, IllegalMoveException {
+    void crosswayIllegalMoveTestSouthwest() throws OutOfBoardException {
 
         /**
          *     0 1 2
@@ -77,7 +76,7 @@ public class RulesTest {
     }
 
     @Test
-    void crosswayIllegalMoveTestNorthwest() throws OutOfBoardException, IllegalMoveException {
+    void crosswayIllegalMoveTestNorthwest() throws OutOfBoardException {
 
         /**
          *     0 1 2
@@ -102,7 +101,7 @@ public class RulesTest {
     }
 
     @Test
-    void crosswayIllegalMoveTestNorthEast() throws OutOfBoardException, IllegalMoveException {
+    void crosswayIllegalMoveTestNorthEast() throws OutOfBoardException {
 
         /**
          *     0 1 2
@@ -125,4 +124,7 @@ public class RulesTest {
         Move m4 = new Move(2, 1, Colors.BLACK);
         assertFalse(gc.validateMove(m4));
     }
+
+
+    
 }

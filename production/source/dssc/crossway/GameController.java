@@ -59,4 +59,12 @@ public class GameController {
     public boolean validateMove(Move m) throws OutOfBoardException {
         return rules.validateMove(this.board, m);
     }
+
+    public int getSide()  {
+        return this.board.getSide();
+    }
+
+    public Colors winner() throws OutOfBoardException {
+        return this.rules.winner(this.board);
+    }
 }
