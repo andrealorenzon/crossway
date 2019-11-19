@@ -7,5 +7,11 @@ package dssc.crossway;
 public enum Colors {
     EMPTY,
     BLACK,
-    WHITE
+    WHITE;
+
+    public Colors getOpposite() {
+        if (this==Colors.BLACK) {return Colors.WHITE;}
+        else if (this ==Colors.WHITE) {return Colors.BLACK;}
+        return Colors.EMPTY;
+    }
 }

@@ -56,7 +56,7 @@ public class GameController {
     }
 
 
-    public boolean validateMove(Move m) {
+    public boolean validateMove(Move m) throws OutOfBoardException {
         return rules.validateMove(this.board, m);
     }
 }

@@ -5,5 +5,5 @@ package dssc.crossway;
      Validator() {
     }
 
-     public abstract boolean validateMove(GoBoard board, Move m0);
+     public abstract boolean validateMove(GoBoard board, Move m0) throws OutOfBoardException;
  }
