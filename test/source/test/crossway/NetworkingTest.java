@@ -1,13 +1,22 @@
 package test.crossway;
 
+import dssc.crossway.GoClient;
 import dssc.crossway.GoServer;
 import org.junit.jupiter.api.Test;
 
-public class NetworkingTest {
+import java.io.IOException;
+
+class NetworkingTest {
     @Test
-    void ServerInitTest() {
+    void ServerClientInitTest() throws IOException {
         String ip = "localhost";
         int port = 10431;
-        GoServer s = new GoServer(ip, port)
+        Thread serverThread = new Thread(new GoServer(ip, port));
+        Thread clientThread= new Thread(new GoClient(ip, port));
+        serverThread.start();
+        clientThread.start();
     }
+
+
+
 }
