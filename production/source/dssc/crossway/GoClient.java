@@ -24,24 +24,23 @@ public class GoClient implements Runnable {
         try (Socket socket = new Socket(this.ip, this.port)) {
             OutputStream output = socket.getOutputStream();
             PrintWriter writer = new PrintWriter(output, true);
-            String time;
-            /**
+
+            Console console = System.console();
+            String text;
 
 
             do{
-                System.out.println("Next Line:");
-
-
+                System.out.println("*C* Next Line:");
+                text = console.readLine();
+                writer.println( text );
+                System.out.println("*C* Client sent "+ text);
                 InputStream input = socket.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+               String reply = reader.readLine();
 
-                 time = reader.readLine();
+                System.out.println("*C* Server sent "+ reply);
 
-                System.out.println(time);
-
-            } while (!time.equals("bye"));
-             */
-            writer.println( "Ciao" );
+            } while (!text.equals("bye"));
 
 
             socket.close();
