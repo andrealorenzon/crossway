@@ -32,15 +32,17 @@ public class GoServer implements Runnable {
         //read input stream
         InputStream input = socket.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-        String line = reader.readLine();    // reads a line of text
+        String line;
+        do {
+            line = reader.readLine();    // reads a line of text
 
-        System.out.println( "*S* Server read line: "+line );
+            System.out.println( "*S* Server read line: " + line );
 
-        OutputStream output = socket.getOutputStream();
-        PrintWriter writer = new PrintWriter(output, true);
-        writer.println( "Message received" );
-        System.out.println("*S* Server sent confirmation");
-
+            OutputStream output = socket.getOutputStream();
+            PrintWriter writer = new PrintWriter( output, true );
+            writer.println( "Message received" );
+            System.out.println( "*S* Server sent confirmation" );
+        } while(!line.equals("close"));
 
         socket.close();
         sSocket.close();
