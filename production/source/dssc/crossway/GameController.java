@@ -67,4 +67,8 @@ public class GameController {
     public Colors winner() throws OutOfBoardException {
         return this.rules.winner(this.board);
     }
+
+    public String getBoard() {
+        return this.board.toString();
+    }
 }

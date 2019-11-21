@@ -22,10 +22,10 @@ public class GoServer implements Runnable {
         this.ip = ip;
         this.port = port;
 
+
     }
 
-
-    void initServer() throws IOException {
+    private void initServer() throws IOException {
 
         //instantiate controller
         GameController controller = new GameController( new GoBoard(12), new CrosswayRules());
@@ -42,6 +42,7 @@ public class GoServer implements Runnable {
 
         String line;
         do {
+            writeToClient.println(controller.getBoard());
             line = readFromClient.readLine();    // reads a line of text
             int xMove;
             int yMove;
