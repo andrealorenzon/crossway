@@ -21,27 +21,53 @@ public class GoServer implements Runnable {
     public GoServer (String ip, int port) {
         this.ip = ip;
         this.port = port;
+
     }
 
 
     void initServer() throws IOException {
+
+        //instantiate controller
+        GameController controller = new GameController( new GoBoard(12), new CrosswayRules());
         //create serverSocket
         ServerSocket sSocket = new ServerSocket( this.port );
         //open socket
         Socket socket = sSocket.accept();
-        //read input stream
+        //read input stream + reader
         InputStream input = socket.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+        BufferedReader readFromClient = new BufferedReader(new InputStreamReader(input));
+        // output stream + writer
+        OutputStream output = socket.getOutputStream();
+        PrintWriter writeToClient = new PrintWriter( output, true );
+
         String line;
         do {
-            line = reader.readLine();    // reads a line of text
+            line = readFromClient.readLine();    // reads a line of text
+            int xMove;
+            int yMove;
+            //unpack and parse move command
 
-            System.out.println( "*S* Server read line: " + line );
+            String[] tokens = line.split(",");
+            try {
+                xMove = Integer.parseInt(tokens[0].split(":")[1]);
+                yMove = Integer.parseInt(tokens[1].split(":")[1]);
 
-            OutputStream output = socket.getOutputStream();
-            PrintWriter writer = new PrintWriter( output, true );
-            writer.println( "Message received" );
-            System.out.println( "*S* Server sent confirmation" );
+                //try to make a move
+                try {
+                    controller.placeStone( xMove, yMove, Colors.WHITE );
+                    writeToClient.println( "Move accepted" );
+                } catch (OutOfBoardException oob) {
+                    writeToClient.println( "Invalid move" );
+                }
+
+            } catch (NumberFormatException e) {
+                writeToClient.println( "Invalid input" );
+                System.out.printf( "*S* Invalid move received, ignored: %s%n", line );
+                continue;
+            }
+
+            System.out.printf( "*S* Server read line: %d,%d%n", xMove, yMove );
+            System.out.println( "*S* Move processed, sent OK" );
         } while(!line.equals("close"));
 
         socket.close();

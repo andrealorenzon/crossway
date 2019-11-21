@@ -43,7 +43,7 @@ public class GoBoard extends GenericBoard {
      */
     public Colors getCellStatus(int x, int y) throws OutOfBoardException {
 
-        if ((x>=this.side)||(y>=this.side)) {
+        if ((x<0)||(y<0)||(x>=this.side)||(y>=this.side)) {
             throw new OutOfBoardException();
         }
 
@@ -58,7 +58,7 @@ public class GoBoard extends GenericBoard {
      */
     public void setCellStatus(int x, int y, Colors newStatus) throws OutOfBoardException {
 
-        if ((x>=this.side)||(y>=this.side)) {
+        if ((x<0)||(y<0)||(x>=this.side)||(y>=this.side)) {
             throw new OutOfBoardException();
         }
 

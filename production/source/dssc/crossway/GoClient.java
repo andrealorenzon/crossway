@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
+
 public class GoClient implements Runnable {
 
     private String ip = "localhost";
@@ -23,24 +24,30 @@ public class GoClient implements Runnable {
     void initClient() {
         try (Socket socket = new Socket(this.ip, this.port)) {
             OutputStream output = socket.getOutputStream();
-            PrintWriter writer = new PrintWriter(output, true);
+            PrintWriter writeToServer = new PrintWriter(output, true);
 
             Console console = System.console();
-            String text;
+            String moveX;
 
 
             do{
-                System.out.println("*C* Next Line:");
-                text = console.readLine();
-                writer.println( text );
-                System.out.println("*C* Client sent "+ text);
+                System.out.println("*C* Next move: X = ");
+                moveX = console.readLine();
+                System.out.println("*C* Next move: Y = ");
+                String moveY = console.readLine();
+                ///////////
+                String toSend = ("x:"+moveX+",y:"+moveY);
+                //////////
+                writeToServer.println( toSend);
+                System.out.println("*C* Client sent "+ toSend);
                 InputStream input = socket.getInputStream();
-                BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-               String reply = reader.readLine();
+                BufferedReader readFromServer = new BufferedReader(new InputStreamReader(input));
+                String reply = readFromServer.readLine();
 
                 System.out.println("*C* Server sent "+ reply);
 
-            } while (!text.equals("bye"));
+
+            } while (!moveX.equals("bye"));
 
 
             socket.close();
