@@ -39,8 +39,14 @@ public class GameController {
      *
      * @throws OutOfBoardException
      */
-    public void placeStone(int x, int y, Colors color) throws OutOfBoardException {
-        board.setCellStatus(x,y,color);
+    public void placeStone(int x, int y, Colors color) throws OutOfBoardException, IllegalMoveException {
+        Move m = new Move( x,y,color );
+        if(this.validateMove(m))
+            board.setCellStatus(m.getX(),m.getY(),m.getColor());
+        else {
+            throw new IllegalMoveException();
+        }
+
     }
 
     public Colors getCellStatus(int x, int y) throws OutOfBoardException {

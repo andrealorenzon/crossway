@@ -58,7 +58,9 @@ public class GoServer implements Runnable {
                     controller.placeStone( xMove, yMove, Colors.WHITE );
                     writeToClient.println( "Move accepted" );
                 } catch (OutOfBoardException oob) {
-                    writeToClient.println( "Invalid move" );
+                    writeToClient.println( "Out of board" );
+                } catch(IllegalMoveException ill) {
+                    writeToClient.println( "Illegal move" );
                 }
 
             } catch (NumberFormatException e) {
