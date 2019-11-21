@@ -25,25 +25,34 @@ public class GoServer implements Runnable {
 
     }
 
-    private void initServer() throws IOException {
+    private void startMultiplayerGame(Socket player1, Socket player2) throws IOException {
 
-        //instantiate controller
-        GameController controller = new GameController( new GoBoard(12), new CrosswayRules());
-        //create serverSocket
-        ServerSocket sSocket = new ServerSocket( this.port );
-        //open socket
-        Socket socket = sSocket.accept();
-        //read input stream + reader
-        InputStream input = socket.getInputStream();
-        BufferedReader readFromClient = new BufferedReader(new InputStreamReader(input));
-        // output stream + writer
+        OutputStream outputPlayer1 = player1.getOutputStream();
+        PrintWriter writeToPlayer1 = new PrintWriter( outputPlayer1, true );
+
+        writeToPlayer1.println( "Waiting for player 2.." );
+
+        OutputStream outputPlayer2 = player2.getOutputStream();
+        PrintWriter writeToPlayer2 = new PrintWriter( outputPlayer2, true );
+
+        writeToPlayer2.println( "Both players connected." );
+        writeToPlayer1.println( "Game starting..." );
+        writeToPlayer2.println( "Game starting..." );
+    }
+
+    private void turn(Socket socket, GameController controller,  Colors color) throws IOException {
+
         OutputStream output = socket.getOutputStream();
-        PrintWriter writeToClient = new PrintWriter( output, true );
-
+        PrintWriter writer = new PrintWriter(output, true);
+        InputStream input = socket.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
         String line;
-        do {
-            writeToClient.println(controller.getBoard());
-            line = readFromClient.readLine();    // reads a line of text
+        Boolean isValid = false;
+
+        do{
+
+            writer.println(controller.getBoard());
+            line = reader.readLine();    // reads a line of text
             int xMove;
             int yMove;
             //unpack and parse move command
@@ -55,25 +64,51 @@ public class GoServer implements Runnable {
 
                 //try to make a move
                 try {
-                    controller.placeStone( xMove, yMove, Colors.WHITE );
-                    writeToClient.println( "Move accepted" );
+                    controller.placeStone( xMove, yMove, color );
+                    writer.println( "Move accepted" );
+                    isValid = true;
                 } catch (OutOfBoardException oob) {
-                    writeToClient.println( "Out of board" );
+                    writer.println( "Out of board" );
                 } catch(IllegalMoveException ill) {
-                    writeToClient.println( "Illegal move" );
+                    writer.println( "Illegal move" );
                 }
-
             } catch (NumberFormatException e) {
-                writeToClient.println( "Invalid input" );
+                writer.println( "Invalid input" );
                 System.out.printf( "*S* Invalid move received, ignored: %s%n", line );
                 continue;
             }
 
             System.out.printf( "*S* Server read line: %d,%d%n", xMove, yMove );
             System.out.println( "*S* Move processed, sent OK" );
-        } while(!line.equals("close"));
+    } while(!isValid);
+}
 
-        socket.close();
+
+
+    private void initServer() throws IOException {
+
+        //instantiate controller
+        GameController controller = new GameController( new GoBoard( 12 ), new CrosswayRules() );
+        //create serverSocket
+        ServerSocket sSocket = new ServerSocket( this.port );
+        Console cons = System.console();
+        //open socket for player 1
+        Socket player1 = sSocket.accept();
+
+        Socket player2 = sSocket.accept();
+
+        startMultiplayerGame( player1, player2 );
+        String stop = "";
+        do {
+            stop = cons.readLine();
+            turn(player1, controller, Colors.WHITE);
+            turn(player2, controller, Colors.BLACK);
+
+        } while(stop != "stop");
+
+        player1.close();
+        player2.close();
+
         sSocket.close();
     }
 }

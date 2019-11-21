@@ -21,6 +21,8 @@ public class GoClient implements Runnable {
         this.port = port;
     }
 
+
+
     void initClient() {
         try (Socket socket = new Socket(this.ip, this.port)) {
             OutputStream output = socket.getOutputStream();
@@ -28,9 +30,15 @@ public class GoClient implements Runnable {
             InputStream input = socket.getInputStream();
             BufferedReader readFromServer = new BufferedReader(new InputStreamReader(input));
             Console console = System.console();
-            String serverMessage;
             String moveX;
             String moveY;
+
+            //read "waiting" and "game starting"
+            String serverMessage = readFromServer.readLine();
+            System.out.println(serverMessage);
+            serverMessage = readFromServer.readLine();
+            System.out.println(serverMessage);
+
 
 
             do{
