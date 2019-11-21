@@ -17,12 +17,14 @@ public class GUI {
         JButton button = new JButton( );
 
         if (stoneCol==Colors.WHITE) {
-
-           button.setForeground( Color.WHITE );
-           button.setText( "\u2B24" );
+            button.setIcon( new ImageIcon( "./production/icons/blackCat49.png" ));
+           //button.setForeground( Color.WHITE );
+           //button.setText( "\u2B24" );
         } else if (stoneCol==Colors.BLACK) {
-            button.setForeground( Color.BLACK );
-            button.setText( "\u2B24" );
+            button.setIcon( new ImageIcon( "./production/icons/whiteCat49.png" ));
+
+            //button.setForeground( Color.BLACK );
+            //button.setText( "\u2B24" );
         }
         button.setMargin(new Insets(0, 0, 0, 0));
         button.setBackground(Color.lightGray);
