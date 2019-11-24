@@ -1,5 +1,7 @@
 package dssc.crossway;
 
+import java.util.LinkedList;
+
 public class CrosswayRules extends Validator {
 
     public CrosswayRules() {
@@ -81,13 +83,13 @@ public class CrosswayRules extends Validator {
 
         for(int i = 0; i < board.getSide(); i++ ){
             // Check white
-            if(board.getCellStatus(0,i) == Colors.WHITE){
-                if(winningChain(0, i,Colors.WHITE))
+            if(board.getCellStatus(i,0) == Colors.WHITE){
+                if(winningChain( i,0,Colors.WHITE,board))
                     return Colors.WHITE;
             }
             //Check black
-            if(board.getCellStatus(i,0) == Colors.BLACK){
-                if(winningChain(i, 0,Colors.BLACK))
+            if(board.getCellStatus(0,i) == Colors.BLACK){
+                if(winningChain(0, i,Colors.BLACK,board))
                     return Colors.BLACK;
             }
         }
@@ -96,13 +98,84 @@ public class CrosswayRules extends Validator {
 
     }
 
-    private boolean winningChain(int x, int y, Colors c) {
+     class Coordinates {
+
+        int x_cord;
+        int y_cord;
+
+         public Coordinates(int x_cord, int y_cord) {
+             this.x_cord = x_cord;
+             this.y_cord = y_cord;
+         }
+     }
+
+
+    /**
+     *
+     * Implements breadth first search for finding the winner
+     *
+     * @param x vertical axes
+     * @param y horizontal axes
+     * @param c color of the current player
+     * @param board 2D board
+     * @return if there is a winner
+     * @throws OutOfBoardException
+     */
+
+    private boolean winningChain(int x, int y, Colors c, GoBoard board) throws OutOfBoardException {
 
 
 
+        int side = board.getSide();
+
+        boolean visited[][] = new boolean[side][side];
+        LinkedList<Coordinates> Q = new LinkedList<Coordinates>();
+
+        visited[x][y] = true;
+        Coordinates node = new Coordinates(x,y);
+        Q.add(node);
+
+        while(Q.size() != 0){
+
+            node = Q.poll();
+            for (Coordinates n : adjacentNodes( node, board, c)) {
+
+                if ((n.x_cord == (side - 1)) && (c == Colors.WHITE)) {
+                    return true;
+                } else if ((n.y_cord == (side - 1)) && (c == Colors.BLACK)) {
+                    return true;
+                }
+                if (!visited[n.x_cord][n.y_cord]) {
+                    visited[n.x_cord][n.y_cord] = true;
+                    Q.add(n);
+                }
+
+            }
+
+        }
+
+        return false;
+    }
+
+    private LinkedList<Coordinates> adjacentNodes(Coordinates node, GoBoard board, Colors c) {
+
+        int x = node.x_cord - 1;
+        int y = node.y_cord - 1;
+
+        LinkedList<Coordinates> ret = new LinkedList<Coordinates>();
 
 
-        return true ;
+        for(int i = x; i < x + 3; i++){
+            for(int j = y; j < y + 3; j++){
+                try {
+                    if ((i != j) && (board.getCellStatus(i, j) == c)) {
+                        ret.add(new Coordinates(i, j));
+                    }
+                } catch (OutOfBoardException ignored) {}
+            }
+        }
+
+        return ret;
     }
 
 }
