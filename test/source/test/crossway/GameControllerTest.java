@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
     }
 
     @Test
-     void firstMove() throws OutOfBoardException {
+     void firstMove() throws OutOfBoardException, IllegalMoveException {
         GameController gc = initialize();
         gc.startGame();
         gc.placeStone(1,1, Colors.WHITE);
