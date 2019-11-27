@@ -126,7 +126,7 @@ public class RulesTest {
     }
 
     @Test
-    void hasWhiteWon() throws OutOfBoardException, IllegalMoveException {
+    void hasWhiteWon() {
 
 
         GameController gc = new GameController(new GoBoard(12), new CrosswayRules());
@@ -144,7 +144,7 @@ public class RulesTest {
 
 
     @Test
-    void hasBlackWon() throws OutOfBoardException, IllegalMoveException {
+    void hasBlackWon()  {
 
 
         GameController gc = new GameController(new GoBoard(12), new CrosswayRules());

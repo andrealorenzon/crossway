@@ -10,7 +10,7 @@ public class GameController {
 
     private GoBoard board;
     private  Validator rules;
-
+    private int turn = 0;
 
 
     public GameController(GoBoard board,Validator rules) {
@@ -30,30 +30,26 @@ public class GameController {
 
     }
 
-    /**
-     * Places a stone.
-     * @param x  x coordinate [0,size-1]
-     * @param y  y coordinate [0,size-1]
-     * @param color {EMPTY, BLACK, WHITE}.
-     * @see Colors
-     *
-     * @throws OutOfBoardException
-     */
-    public void placeStone(int x, int y, Colors color) throws OutOfBoardException {
-        board.setCellStatus(x,y,color);
+
+  //  public void placeStone(int x, int y, Colors color) throws OutOfBoardException {
+  //      board.setCellStatus(x,y,color);
+  //
+  //  }
+    public void placeStone(Move m) throws OutOfBoardException, IllegalMoveException {
+        if(this.validateMove(m)) {
+            board.setCellStatus(m.getX(), m.getY(), m.getColor());
+
+        }
+        else {
+            throw new IllegalMoveException();
+        }
     }
 
     public Colors getCellStatus(int x, int y) throws OutOfBoardException {
         return this.board.getCellStatus(x,y);
     }
 
-    public void placeStone(Move m) throws OutOfBoardException, IllegalMoveException {
-        if(this.validateMove(m))
-            board.setCellStatus(m.getX(),m.getY(),m.getColor());
-        else {
-            throw new IllegalMoveException();
-        }
-    }
+
 
 
     public boolean validateMove(Move m) throws OutOfBoardException {
@@ -64,7 +60,23 @@ public class GameController {
         return this.board.getSide();
     }
 
-    public Colors winner() throws OutOfBoardException {
-        return this.rules.winner(this.board);
+    public Colors winner() {
+
+        return  this.rules.winner(this.board);
+
     }
+
+    public void autoPlaceStone(Coordinates m) throws IllegalMoveException, OutOfBoardException {
+        placeStone(new Move (m.getX_cord(), m.getY_cord(), currentTurnColor()));
+        this.turn++;
+    }
+
+    public Colors currentTurnColor() {
+        return (this.turn % 2 == 0) ? Colors.WHITE : Colors.BLACK;
+    }
+
+    public String stringBoard() {
+        return this.board.toString();
+    }
+
 }

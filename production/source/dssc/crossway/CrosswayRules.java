@@ -78,36 +78,28 @@ public class CrosswayRules extends Validator {
 
     @Override
 
-    public Colors winner(GoBoard board) throws  OutOfBoardException{
+    public Colors winner(GoBoard board){
 
-
-        for(int i = 0; i < board.getSide(); i++ ){
-            // Check white
-            if(board.getCellStatus(i,0) == Colors.WHITE){
-                if(winningChain( i,0,Colors.WHITE,board))
-                    return Colors.WHITE;
+        try {
+            for (int i = 0; i < board.getSide(); i++) {
+                // Check white
+                if (board.getCellStatus(i, 0) == Colors.WHITE) {
+                    if (winningChain(i, 0, Colors.WHITE, board))
+                        return Colors.WHITE;
+                }
+                //Check black
+                if (board.getCellStatus(0, i) == Colors.BLACK) {
+                    if (winningChain(0, i, Colors.BLACK, board))
+                        return Colors.BLACK;
+                }
             }
-            //Check black
-            if(board.getCellStatus(0,i) == Colors.BLACK){
-                if(winningChain(0, i,Colors.BLACK,board))
-                    return Colors.BLACK;
-            }
-        }
+        } catch (Exception e) {e.printStackTrace();}
 
         return Colors.EMPTY;
 
     }
 
-     class Coordinates {
 
-        int x_cord;
-        int y_cord;
-
-         public Coordinates(int x_cord, int y_cord) {
-             this.x_cord = x_cord;
-             this.y_cord = y_cord;
-         }
-     }
 
 
     /**
@@ -122,7 +114,7 @@ public class CrosswayRules extends Validator {
      * @throws OutOfBoardException
      */
 
-    private boolean winningChain(int x, int y, Colors c, GoBoard board) throws OutOfBoardException {
+    private boolean winningChain(int x, int y, Colors c, GoBoard board)  {
 
 
 
@@ -140,13 +132,13 @@ public class CrosswayRules extends Validator {
             node = Q.poll();
             for (Coordinates n : adjacentNodes( node, board, c)) {
 
-                if ((n.x_cord == (side - 1)) && (c == Colors.WHITE)) {
+                if ((n.getX_cord() == (side - 1)) && (c == Colors.WHITE)) {
                     return true;
-                } else if ((n.y_cord == (side - 1)) && (c == Colors.BLACK)) {
+                } else if ((n.getY_cord() == (side - 1)) && (c == Colors.BLACK)) {
                     return true;
                 }
-                if (!visited[n.x_cord][n.y_cord]) {
-                    visited[n.x_cord][n.y_cord] = true;
+                if (!visited[n.getX_cord()][n.getY_cord()]) {
+                    visited[n.getX_cord()][n.getY_cord()] = true;
                     Q.add(n);
                 }
 
@@ -159,8 +151,8 @@ public class CrosswayRules extends Validator {
 
     private LinkedList<Coordinates> adjacentNodes(Coordinates node, GoBoard board, Colors c) {
 
-        int x = node.x_cord - 1;
-        int y = node.y_cord - 1;
+        int x = node.getX_cord() - 1;
+        int y = node.getY_cord() - 1;
 
         LinkedList<Coordinates> ret = new LinkedList<Coordinates>();
 
@@ -168,7 +160,7 @@ public class CrosswayRules extends Validator {
         for(int i = x; i < x + 3; i++){
             for(int j = y; j < y + 3; j++){
                 try {
-                    if ((i != j) && (board.getCellStatus(i, j) == c)) {
+                    if ((i != node.getX_cord() || j != node.getY_cord()) && (board.getCellStatus(i, j) == c)) {
                         ret.add(new Coordinates(i, j));
                     }
                 } catch (OutOfBoardException ignored) {}
