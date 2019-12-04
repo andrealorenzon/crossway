@@ -139,6 +139,39 @@ public class RulesTest {
         assertFalse(gc.validateMove(m4));
     }
 
+    @Test
+    void hasWhiteWon() throws OutOfBoardException, IllegalMoveException {
 
+
+        GameController gc = new GameController(new GoBoard(12), new CrosswayRules());
+        gc.startGame();
+        try {
+            for(int i = 0; i < gc.getSide() ; i++){
+                gc.placeStone(new Move(i, 0, Colors.WHITE));
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        assertEquals(gc.winner(), Colors.WHITE);
+    }
+
+
+    @Test
+    void hasBlackWon() throws OutOfBoardException, IllegalMoveException {
+
+
+        GameController gc = new GameController(new GoBoard(12), new CrosswayRules());
+        gc.startGame();
+        try {
+            for(int i = 0; i < gc.getSide() ; i++){
+                gc.placeStone(new Move(0, i, Colors.BLACK));
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        assertEquals(gc.winner(), Colors.BLACK);
+    }
     
 }
