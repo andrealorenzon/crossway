@@ -41,6 +41,38 @@ import static   org.junit.jupiter.api.Assertions.assertEquals;
         }
     }
 
+     @Test
+     void testToString() {
+
+         GoBoard board = new GoBoard (12);
+         try {
+             board.setCellStatus(1,9, Colors.WHITE);
+             board.setCellStatus(0,2, Colors.WHITE);
+             board.setCellStatus(7,4, Colors.BLACK);
+             board.setCellStatus(5,11, Colors.BLACK);
+             board.setCellStatus(5,7, Colors.BLACK);
+         } catch (OutOfBoardException e) {
+             assertEquals(e.getMessage(),"Out of board!");
+         }
+
+         String expected =                  //y
+                         "............accapo" + //0
+                         "............accapo" + //1
+                         "W...........accapo" + //2
+                         "............accapo" + //3
+                         ".......B....accapo" + //4
+                         "............accapo" + //5
+                         "............accapo" + //6
+                         ".....B......accapo" + //7
+                         "............accapo" + //8
+                         ".W..........accapo" + //9
+                         "............accapo" + //10
+                         ".....B......accapo";    //11
+                     //x: 0123456789te
+
+         assertEquals(expected,board.toString());
+     }
+
 
 
 
