@@ -16,13 +16,27 @@ public class RulesTest {
     }
 
     @Test
-    void validateIllegalMoveTest() throws OutOfBoardException, IllegalMoveException {
+    void validatePieRuleTest() throws OutOfBoardException, IllegalMoveException {
         GameController gc = new GameController(new GoBoard(12), new CrosswayRules());
         gc.startGame();
+
         Move m0 = new Move(1, 1, Colors.WHITE);
         Move m1 = new Move(1, 1, Colors.BLACK);
         gc.placeStone(m0);
-        assertFalse(gc.validateMove(m1));
+        assertTrue(gc.validateMove(m1));
+    }
+
+    @Test
+    void validateIllegalMoveTest() throws OutOfBoardException, IllegalMoveException {
+        GameController gc = new GameController(new GoBoard(12), new CrosswayRules());
+        gc.startGame();
+
+        Move m0 = new Move(1, 1, Colors.WHITE);
+        Move m1 = new Move(1, 1, Colors.BLACK);
+        Move m2 = new Move(1, 1, Colors.WHITE);
+        gc.placeStone( m0 );
+        gc.placeStone( m1 );
+        assertFalse(gc.validateMove(m2));
     }
 
     @Test
